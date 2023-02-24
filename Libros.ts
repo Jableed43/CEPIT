@@ -48,7 +48,7 @@ export class GestorLibros{
     }
 
     modificar(nombre: string, array: Libro[], dato: string){
-        let libroModificar : Libro = this.consultar(nombre, array)
+        let libroModificar = this.consultar(nombre, array)
         if(libroModificar){
             libroModificar.nombre = dato;
             console.log('El libro', nombre, ' Ha sido modificado y ahora se llama ', dato);
@@ -61,15 +61,40 @@ export class GestorLibros{
     }
 
     eliminar(nombre: string, array: Libro[]): any {
-        let libroEliminado = array.filter(libro => libro.nombre != nombre);
-        if(libroEliminado){    
-            console.log('Libro eliminado', libroEliminado);
-                
-            console.log('Libro ', nombre, ' ha sido eliminado');
-            return array = libroEliminado;
+        let libroEncontrado = array.findIndex(libro => libro.nombre == nombre);
+        if(libroEncontrado >= 0){  
+            array.splice(libroEncontrado, 1)
+            console.log('Libro eliminado', nombre);
+            console.log(array);
+            return array;
         } else {
 
          console.log('Libro ', nombre, 'no ha sido eliminado');
         }
     }
 }
+
+
+/*
+Crear libros
+Crear una biblioteca de libros
+crear gestor de libros
+ejecutar la funcion todo
+ejecutar la funcion insertar}
+ejecutar la funcion consultar
+ejecutar la funcion modificar
+ejecutar la funcion eliminar */
+/* Nuestros libros */
+var harryPotter = new Libro('Harry Potter', 'Fantasia', 200, 'J.k. Rowling');
+var martinFierro = new Libro('Martin Fierro', 'Tradicionalista', 200, 'Jose Hernandez');
+var señorAnillos = new Libro('Señor de los anillos', 'Fantasia', 500, 'J. RR Tolkien');
+/* Poblar nuestra biblioteca con libros */
+var biblioteca = [harryPotter, martinFierro, señorAnillos];
+/* Crear nuevo gestor de libros */
+var gestor = new GestorLibros;
+var carrie = new Libro('Carrie', 'Terror', 450, 'Stephen King');
+// gestor.insertar(carrie, biblioteca)
+// gestor.todo(biblioteca)
+// gestor.consultar('Señor de los anillos', biblioteca)
+// gestor.modificar('Harry Potter', biblioteca, 'Harry Potter y el prisionero de askaban')
+gestor.eliminar('Harry Potter', biblioteca);
